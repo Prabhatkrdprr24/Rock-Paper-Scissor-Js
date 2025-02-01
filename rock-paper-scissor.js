@@ -1,76 +1,89 @@
-function handleRockClick(){
-    let computerChoice = Math.floor(Math.random() * 3 + 1);
+let score = {
+    computerWon: 0,
+    userWon: 0,
+    tie: 0,
+}
+
+function computerChoice(){
+    let ranomChoice = Math.floor(Math.random() * 3 + 1);
     let computerChoiceText = "";
-    if(computerChoice == 1){
+    if(ranomChoice == 1){
         computerChoiceText = "rock";
     }
-    else if(computerChoice == 2){
-        computerChoiceText = "Paper";
+    else if(ranomChoice == 2){
+        computerChoiceText = "paper";
     }
     else{
-        computerChoiceText = "Scissor";
+        computerChoiceText = "scissor";
     }
 
+    return computerChoiceText;
+}
+
+function updateResult(userChoice, computerChoiceText, res){
+
+    if(res == "Computer Wins"){
+        score.computerWon++;
+    }
+    else if(res == "You Win"){
+        score.userWon++;
+    }
+    else{
+        score.tie++;
+    }
+
+    document.getElementById('score').innerHTML = `Computer Won: ${score.computerWon} times <br> User Won: ${score.userWon} times <br> No of match Tie: ${score.tie}`;
+
+    document.getElementById('result').innerHTML = `You Choose ${userChoice}.<br></nr> Computer Choose ${computerChoiceText} <br> And the result is ${res}`;
+
+}
+
+function handleRockClick(){
+
+    let computerChoiceText = computerChoice();
+
     let res;
-    if(computerChoice == "rock"){
+    if(computerChoiceText == "rock"){
         res = "Draw";
     }
-    else if(computerChoice == "Paper"){
+    else if(computerChoiceText == "paper"){
         res = "Computer Wins";
     }
     else{
         res = "You Win";
     }
 
-    document.getElementById('result').innerHTML = `You Choose Rock.<br></nr> Computer Choose ${computerChoiceText} <br> And the result is ${res}`;
+    updateResult("Rock", computerChoiceText, res);    
 }
 
 function handlePaperClick(){
-    let computerChoice = Math.floor(Math.random() * 3 + 1);
-    let computerChoiceText = "";
-    if(computerChoice == 1){
-        computerChoiceText = "rock";
-    }
-    else if(computerChoice == 2){
-        computerChoiceText = "Paper";
-    }
-    else{
-        computerChoiceText = "Scissor";
-    }
+
+    let computerChoiceText = computerChoice();
 
     let res;
-    if(computerChoice == "rock"){
+    if(computerChoiceText == "rock"){
         res = "You Win";
     }
-    else if(computerChoice == "Paper"){
+    else if(computerChoiceText == "Paper"){
         res = "Draw";
     }
     else{
-        res = "I win";
+        res = "Computer Wins";
     }
 
 
-    document.getElementById('result').innerHTML = `You Choose Paper. <br>Computer Choose ${computerChoiceText} <br> And the result is ${res}`;
+    updateResult("Paper", computerChoiceText, res);
 }
 
 function handleScissorClick(){
-    let computerChoice = Math.floor(Math.random() * 3 + 1);
-    let computerChoiceText = "";
-    if(computerChoice == 1){
-        computerChoiceText = "rock";
-    }
-    else if(computerChoice == 2){
-        computerChoiceText = "Paper";
-    }
-    else{
-        computerChoiceText = "Scissor";
-    }
+    
+    let computerChoiceText = computerChoice();
 
     let res;
-    if(computerChoice == "rock"){
-        res = "I win";
+    if(computerChoiceText == "rock"){
+        res = "Computer Wins";
     }
-    else if(computerChoice == "Paper"){
+    else if(computerChoiceText == "Paper"){
         res = "You Win";
     }
     else{
@@ -78,6 +91,6 @@ function handleScissorClick(){
     }
 
 
-    document.getElementById('result').innerHTML = `You Choose Scissor.<br> Computer Choose ${computerChoiceText} <br> And the result is ${res}`;
+    updateResult("Scissor", computerChoiceText, res);
 
 }
