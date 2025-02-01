@@ -11,7 +11,18 @@ function handleRockClick(){
         computerChoiceText = "Scissor";
     }
 
-    document.getElementById('result').innerHTML = `You Choose Rock.<br></nr> Computer Choose ${computerChoiceText}`;
+    let res;
+    if(computerChoice == "rock"){
+        res = "Draw";
+    }
+    else if(computerChoice == "Paper"){
+        res = "Computer Wins";
+    }
+    else{
+        res = "You Win";
+    }
+
+    document.getElementById('result').innerHTML = `You Choose Rock.<br></nr> Computer Choose ${computerChoiceText} <br> And the result is ${res}`;
 }
 
 function handlePaperClick(){
@@ -27,7 +38,19 @@ function handlePaperClick(){
         computerChoiceText = "Scissor";
     }
 
-    document.getElementById('result').innerHTML = `You Choose Paper. <br>Computer Choose ${computerChoiceText}`;
+    let res;
+    if(computerChoice == "rock"){
+        res = "You Win";
+    }
+    else if(computerChoice == "Paper"){
+        res = "Draw";
+    }
+    else{
+        res = "I win";
+    }
+
+
+    document.getElementById('result').innerHTML = `You Choose Paper. <br>Computer Choose ${computerChoiceText} <br> And the result is ${res}`;
 }
 
 function handleScissorClick(){
@@ -43,6 +66,18 @@ function handleScissorClick(){
         computerChoiceText = "Scissor";
     }
 
-    document.getElementById('result').innerHTML = `You Choose Scissor.<br> Computer Choose ${computerChoiceText}`;
+    let res;
+    if(computerChoice == "rock"){
+        res = "I win";
+    }
+    else if(computerChoice == "Paper"){
+        res = "You Win";
+    }
+    else{
+        res = "Draw";
+    }
+
+
+    document.getElementById('result').innerHTML = `You Choose Scissor.<br> Computer Choose ${computerChoiceText} <br> And the result is ${res}`;
 
 }
