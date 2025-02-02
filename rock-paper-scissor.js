@@ -2,6 +2,48 @@ let score = {
     computerWon: 0,
     userWon: 0,
     tie: 0,
+    updateScore: function(res){
+        if(res == "Computer Wins"){
+            score.computerWon++;
+        }
+        else if(res == "You Win"){
+            score.userWon++;
+        }
+        else{
+            score.tie++;
+        }
+    },
+    updateScoreUI: function(){
+
+        document.getElementById('score').innerHTML = `Computer Won: ${score.computerWon} times <br> User Won: ${score.userWon} times <br> No of match Tie: ${score.tie}`;
+
+    },
+    saveScoreInBrowser: function(){
+        console.log("Save Score in Browser", this);
+        
+        let scoreStr = JSON.stringify(this);
+        localStorage.setItem('score', scoreStr);
+    }
+}
+
+function initialize(){
+    console.log("Initialize called");
+    
+    let scoreStr = localStorage.getItem('score');
+    console.log(scoreStr);
+    
+    if(scoreStr){
+        let scoreVal = JSON.parse(scoreStr);
+        score.computerWon = scoreVal.computerWon;
+        score.userWon = scoreVal.userWon;
+        score.tie = scoreVal.tie;
+
+        console.log(scoreVal);
+        
+        score.updateScoreUI();
+
+    }
+
 }
 
 function computerChoice(){
@@ -22,19 +64,13 @@ function computerChoice(){
 
 function updateResult(userChoice, computerChoiceText, res){
 
-    if(res == "Computer Wins"){
-        score.computerWon++;
-    }
-    else if(res == "You Win"){
-        score.userWon++;
-    }
-    else{
-        score.tie++;
-    }
-
-    document.getElementById('score').innerHTML = `Computer Won: ${score.computerWon} times <br> User Won: ${score.userWon} times <br> No of match Tie: ${score.tie}`;
+    score.updateScore(res);
 
     document.getElementById('result').innerHTML = `You Choose ${userChoice}.<br></nr> Computer Choose ${computerChoiceText} <br> And the result is ${res}`;
+
+    score.updateScoreUI(userChoice, computerChoiceText, res);
+
+    score.saveScoreInBrowser();
 
 }
 
@@ -94,3 +130,16 @@ function handleScissorClick(){
     updateResult("Scissor", computerChoiceText, res);
 
 }
+
+function handleResetBtn(){
+    score.computerWon = 0;
+    score.userWon = 0;
+    score.tie = 0;
+
+    score.updateScoreUI();
+
+    score.saveScoreInBrowser();
+}
+
+
+initialize();
